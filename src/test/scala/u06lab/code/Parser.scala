@@ -29,6 +29,7 @@ class ParserTests:
   def testNotTwoConsecutiveParser =
     assertTrue(parserNTC.parseAll("XYZ".toList))
     assertFalse(parserNTC.parseAll("XYYZ".toList))
+    assertFalse(parserNTC.parseAll("XXYZ".toList))
     assertTrue(parserNTC.parseAll("".toList))
 
   @Test

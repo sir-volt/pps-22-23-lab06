@@ -27,10 +27,17 @@ trait NonEmpty[T] extends Parser[T]:
 class NonEmptyParser(chars: Set[Char]) extends BasicParser(chars) with NonEmpty[Char]
 
 trait NotTwoConsecutive[T] extends Parser[T]:
-  val todo = ???
-// ???
+  private[this] var previous: T = _
 
-class NotTwoConsecutiveParser(chars: Set[Char]) extends BasicParser(chars) // with ????
+  abstract override def parse(t: T): Boolean =
+    if previous != t then
+      previous = t
+      super.parse(t)
+    else
+      false
+  abstract override def end: Boolean = super.end
+
+class NotTwoConsecutiveParser(chars: Set[Char]) extends BasicParser(chars) with NotTwoConsecutive[Char]
 
 @main def checkParsers(): Unit =
   def parser = new BasicParser(Set('a', 'b', 'c'))
