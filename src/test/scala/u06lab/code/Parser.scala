@@ -13,6 +13,8 @@ class ParserTests:
   def parserNTCNE = new NonTwoConsecutiveNonEmptyParse(Set('X', 'Y', 'Z'))
   def sparser: Parser[Char] = "abc".charParser // "abc".charParser()
 
+  def parserSTN = new ShorterThanNParse(Set('a', 'b', 'c'), 4)
+
   @Test
   def testBasicParser =
     assertTrue(parser.parseAll("aabc".toList))
@@ -43,3 +45,9 @@ class ParserTests:
     assertTrue(sparser.parseAll("aabc".toList))
     assertFalse(sparser.parseAll("aabcdc".toList))
     assertTrue(sparser.parseAll("".toList))
+
+  @Test
+  def testShorterThanNParser =
+    assertTrue(parserSTN.parseAll("abc".toList))
+    assertFalse(parserSTN.parseAll("ads".toList))
+    assertFalse(parserSTN.parseAll("aaabbbbcccc".toList))
