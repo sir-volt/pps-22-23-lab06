@@ -10,8 +10,8 @@ class ParserTests:
   def parserNE = new NonEmptyParser(Set('0', '1'))
   def parserNTC = new NotTwoConsecutiveParser(Set('X', 'Y', 'Z'))
   // note we do not need a class name here, we use the structural type
-  def parserNTCNE = new BasicParser(Set('X', 'Y', 'Z')) with NotTwoConsecutive[Char] with NonEmpty[Char]
-  def sparser: Parser[Char] = ??? // "abc".charParser()
+  def parserNTCNE = new NonTwoConsecutiveNonEmptyParse(Set('X', 'Y', 'Z'))
+  def sparser: Parser[Char] = "abc".charParser // "abc".charParser()
 
   @Test
   def testBasicParser =
